@@ -1,0 +1,6 @@
+ cmake_minimum_required(VERSION 3.10) // cmake的最低版本要求
+
+ project(json_design) //项目名称
+
+ add_exectable(json_design test_scanner.cpp) //形成可执行文件
+
