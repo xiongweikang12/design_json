@@ -4,19 +4,19 @@
 namespace civitasv {
 	namespace json
 	{
-		char Scanner::Peek()
+		char Scanner::Peek() //返回当前位置字符
 		{
 			if (IsAtEnd())
 			{	return '\0';}
 			return source[current];
 		}
 
-		bool Scanner::isDigit(char c)
+		bool Scanner::isDigit(char c) //判断是否为数值
 		{
 			return c>='0'&& c<='9';
 		}
 
-		char Scanner::Peeknext()
+		char Scanner::Peeknext() //返回下一个字符
 		{
 			if (current + 1 >= source.size())
 			{
@@ -31,12 +31,12 @@ namespace civitasv {
 		}
 
 
-		bool Scanner::IsAtEnd()
+		bool Scanner::IsAtEnd() //判断是否结束
 		{
 			return current >= source.size();
 		}
 
-		char Scanner::Advance()
+		char Scanner::Advance() //前进
 		{
 			return source[current++];
 		}
@@ -51,7 +51,7 @@ namespace civitasv {
 			}//不是数字时退出
 
 			//	120.22
-			if (Peek() == '.' && isDigit(Peeknext()))
+			if (Peek() == '.' && isDigit(Peeknext())) //表示当前为.下一个为数值
 			{
 				Advance();
 				while (isDigit(Peek()))
@@ -60,6 +60,8 @@ namespace civitasv {
 				}
 			}
 			value_number = std::atof(source.substr(pos, current - pos).c_str());
+			//substr表示赋值字串，也就是数值部分，c_str()生成一个char*指针 ，atof将字符串转化为浮点数
+			//将扫描到的赋值给value_number
 
 		}
 
@@ -77,9 +79,10 @@ namespace civitasv {
 			}
 			Advance();
 			value_string = source.substr(pos, current - pos - 1);
+			//将扫描到的赋值给value_string
 		}
 
-		void Scanner::scantrue()
+		void Scanner::scantrue() //compare 表示符合true current后三个位置是rue,相等返回0，然后自增
 		{
 			if (source.compare(current, 3, "rue") == 0)
 			{
@@ -89,6 +92,7 @@ namespace civitasv {
 			{
 				Error("scan true error");
 			}
+
 
 		}
 

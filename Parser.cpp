@@ -6,20 +6,19 @@ namespace civitasv {
 	namespace json
 	{
 		using jsonTokenkey = Scanner::jsonTokentype;
-
 		jsonElement* Parser::parse()
 		{
 			jsonElement* element = new jsonElement();
 			jsonTokenkey token_key = scanner_.Scan();
-			if (token_key != jsonTokenkey::END_OBJECT)
+			if (token_key != jsonTokenkey::END_OBJECT) 
 			{
 				switch (token_key)
 				{
-				case jsonTokenkey::END_OF_SOURCE:
+				case jsonTokenkey::END_OF_SOURCE: //结束
 				{
 					break;
 				}
-				case jsonTokenkey::BEGIN_OBJECT:
+				case jsonTokenkey::BEGIN_OBJECT: //开始解析对象
 				{
 					jsonobject* object = Parserobject();
 					//获取一个json的对象 map<string,jsonElement>
@@ -74,21 +73,21 @@ namespace civitasv {
 			{
 				return res;
 			}
-			scanner_.rollback(); //退后一步
+			scanner_.rollback(); //退后一步，判断不是END_OBJECT 回退
 			while (true)
 			{
-				next = scanner_.Scan();
+				next = scanner_.Scan(); //返回jsonTokenkey同时,处理对应的scanstring()
 				if (next != jsonTokenkey::VALUE_STRING)
 				{
 					Error("key must be string");
 				}
-				std::string key = scanner_.get_value_string();
+				std::string key = scanner_.get_value_string(); //Scanner的value_string对外get接口
 				next = scanner_.Scan();
 				if (next != jsonTokenkey::NAME_SEPRATOR)
 				{
 					Error("key between and value must be :");
 				}
-				(*res)[key] = parse();
+				(*res)[key] = parse();  //相当于插入数据
 				next = scanner_.Scan();
 				if (next == jsonTokenkey::END_OBJECT)
 				{

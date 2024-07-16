@@ -42,8 +42,8 @@ namespace civitasv {
 
 
 		private:
-			bool IsAtEnd();
-			char Advance();
+			bool IsAtEnd(); //
+			char Advance(); //获取下一个字符
 			void scannumber();
 			void scanstring();
 			void scantrue();
@@ -57,8 +57,8 @@ namespace civitasv {
 
 
 			
-			std::string source;  /// json source
-			size_t current; ///current handling position
+			std::string source;  /// json source,当前的字符串
+			size_t current; ///current handling position 当前处理到的位置
 			size_t prev_pos; /// prev handling position
 
 			std::string value_string;

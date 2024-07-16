@@ -104,47 +104,18 @@ namespace civitasv {
 			jsonElement(float value_number) { value(value_number); }
 			jsonElement(bool value_bool) { value(value_bool); }
 			
+			//构造函数
 
-			jsonobject* Asobject()
-			{
-				if (type_ == Type::JSON_OBJECT)
-				{
-					return value_.value_object;
-				}
-				Error("Type of jsonElement isnt jsonobject");
-			}
-			jsonArray* Asarray()
-			{
-				if (type_ == Type::JSON_ARRAY)
-				{
-					return value_.value_array;
-				}
-				Error("Type of jsonElement isnt jsonarray");
-			}
-			std::string Asstring()
-			{
-				if (type_ == Type::JSON_STRING)
-				{
-					return *(value_.value_string);
-				}
-				Error("Type of jsonElement isnt jsonstring");
-			}
-			float AsNumber()
-			{
-				if (type_ == Type::JSON_NUMBER)
-				{
-					return value_.value_number;
-				}
-				Error("Type of jsonElement isnt jsonnumber");
-			}
-			bool AsBool()
-			{
-				if (type_ == Type::JSON_BOOL)
-				{
-					return value_.value_bool;
-				}
-				Error("Type of jsonElement isnt jsonbool");
-			}
+			jsonobject* Asobject();
+			
+			jsonArray* Asarray();
+		
+			std::string Asstring();
+			
+			float AsNumber();
+			
+			bool AsBool();
+			
 			/// <summary>
 			/// 以上为对外的访问接口
 			/// </summary>
@@ -178,46 +149,10 @@ namespace civitasv {
 				value_.value_bool = value_bool;
 			}
 
-			std::string Dumps() //将 jsonElement ->string
-			{
-				std::stringstream ss;
-				switch (type_)
-				{
-				case Type::JSON_OBJECT:
-				{	
-					ss << (*(value_.value_object));
-					break;
-				}
-				case Type::JSON_ARRAY:
-				{
-					ss << (*(value_.value_array));
-					break;
-				}
-				case Type::JSON_STRING:
-				{
-					ss << '\"' << *(value_.value_string) << '\"';
-					break;
-				}
-				case Type::JSON_NUMBER:
-				{
-					ss << value_.value_number;
-					break;
-				}
-				case Type::JSON_BOOL:
-				{
-					ss << (value_.value_bool == true ? "true" : "false");
-					break;
-				}
-				case Type::JSON_NULL:
-				{
-					ss << "null";
-					break;
-				}
-				default:
-					break;
-				}
-				return ss.str();
-			}
+			//对于value的不同类型的重载
+
+			std::string Dumps(); //将 jsonElement ->string
+			
 			friend std::ostream& operator << (std::ostream& os, const jsonobject& object);
 			
 

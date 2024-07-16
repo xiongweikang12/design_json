@@ -2,12 +2,12 @@
 
 #include "scanner.h"
 #include "jsonElement.h"
-
+# define Json_API _declspec(dllexport)
 namespace civitasv
 {
 	namespace json
 	{
-		class Parser
+		Json_API class Parser
 		{
 		public:
 			Parser(Scanner scanner) :scanner_(scanner){};
